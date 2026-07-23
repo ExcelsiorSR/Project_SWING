@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/jpeg" href="swing_logo.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RL Status -- AI Architecture</title>
+<link rel="stylesheet" href="style.css?v=1">
+<style>
+  .ai-nav { max-width: 720px; margin: 0 auto; padding: 16px 20px 0; display: flex; gap: 18px; font-size: 13px; }
+  .ai-nav a { color: var(--text-dim); text-decoration: none; }
+  .ai-nav a.active { color: var(--accent-cyan); font-weight: bold; }
+  .ai-nav a:hover { color: var(--accent-cyan); }
+  .rl-wrapper { max-width: 720px; margin: 0 auto; padding: 20px 20px 40px; }
+  .rl-header h1 { color: var(--accent-cyan); font-size: 1.6rem; margin: 0 0 6px; text-transform: uppercase; letter-spacing: 1px; }
+  .rl-note { color: var(--text-dim); font-size: 12px; margin-bottom: 20px; line-height: 1.6; }
+  .policy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .policy-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 16px; }
+  .policy-card h3 { margin: 0 0 10px; font-size: 14px; color: #fff; }
+  .status-line { font-size: 12px; color: var(--text-dim); margin: 4px 0; }
+</style>
+</head>
+<body>
+
+<div class="ai-nav">
+  <div style="display:flex; align-items:center; gap:10px; margin-right:20px;">
+    <img src="project_swing.png" style="height: 50px; width: auto; filter: drop-shadow(0 0 5px rgba(0, 168, 255, 0.5));">
+  </div>
+  <a href="ai_home.html">&larr; GridMind Home</a>
+  <a href="ai_dashboard.html">Agent Copilot</a>
+  <a href="ai_forecast.html">Forecast Dashboard</a>
+  <a href="ai_chat.html">Ask the Grid</a>
+  <a href="ai_rl_status.html" class="active">RL Status</a>
+</div>
+
+<div class="rl-wrapper">
+  <div class="rl-header">
+    <h1>RL Optimization Status</h1>
+  </div>
+  <p class="rl-note">
+    This is real status, read directly from the models/ folder on the Digital Twin -- not a
+    placeholder. A trained policy is used automatically inside /optimize_action whenever a
+    matching grid + action_type combination exists; anything untrained falls back to bisection
+    search transparently. LOAD_REDISTRIBUTION always uses bisection search regardless -- its
+    action space (a discrete destination bus + continuous MW) isn't a fit for this RL setup.
+    <br><br>
+    Note: reward-history / training-curve charts aren't shown here yet -- the training script only
+    started logging reward data with this update, so that data will exist starting from your NEXT
+    retrain, not retroactively for the policies already trained.
+  </p>
+
+  <div id="policyGrid" class="policy-grid">
+    <p class="status-line">Loading status...</p>
+  </div>
+</div>
+
+<script src="ai_rl_status.js?v=1"></script>
+</body>
+</html>

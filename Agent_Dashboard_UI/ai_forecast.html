@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/jpeg" href="swing_logo.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forecast Dashboard -- AI Architecture</title>
+<link rel="stylesheet" href="style.css">
+<!-- Import Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  .ai-nav { max-width: 900px; margin: 0 auto; padding: 16px 20px 0; display: flex; gap: 18px; font-size: 13px; }
+  .ai-nav a { color: var(--text-dim); text-decoration: none; }
+  .ai-nav a.active { color: var(--accent-cyan); font-weight: bold; }
+  .ai-nav a:hover { color: var(--accent-cyan); }
+  .dashboard-wrapper { max-width: 900px; margin: 0 auto; padding: 20px 20px 40px; }
+  .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+  .header-row h1 { color: var(--accent-cyan); font-size: 1.6rem; margin: 0; text-transform: uppercase; }
+  select { background: #2a2a2a; color: #fff; border: 1px solid #3a3a3a; padding: 8px 14px; border-radius: 6px; font-size: 14px; }
+  .chart-container { background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 20px; position: relative; height: 500px; }
+</style>
+</head>
+<body>
+
+<div class="ai-nav">
+    <div style="display:flex; align-items:center; gap:10px; margin-right:20px;">
+    <img src="project_swing.png" style="height: 50px; width: auto; filter: drop-shadow(0 0 5px rgba(0, 168, 255, 0.5));">
+  </div>
+  <a href="ai_home.html">&larr; GridMind Home</a>
+  <a href="ai_dashboard.html">Agent Copilot</a>
+  <a href="ai_chat.html">Ask the Grid</a>
+  <a href="ai_forecast.html" class="active">Forecast Dashboard</a>
+  <a href="ai_rl_status.html">RL Status</a>
+</div>
+
+<div class="dashboard-wrapper">
+  <div class="header-row">
+    <h1>Multi-Horizon Demand Forecast</h1>
+    <select id="gridSelect">
+      <option value="118">IEEE 118</option>
+      <option value="39">IEEE 39</option>
+    </select>
+  </div>
+  
+  <div class="card" style="margin-bottom: 20px; display:flex; justify-content: space-between; align-items: center;">
+    <div>
+        <span style="color:var(--text-dim); font-size:12px;">ACTIVE MODEL</span><br>
+        <strong id="modelSource" style="color:var(--accent-cyan);">Fetching...</strong>
+    </div>
+    <button id="refreshForecastBtn" class="action-btn btn-dark">Pull Latest Forecast</button>
+  </div>
+
+  <div class="chart-container">
+    <canvas id="forecastChart"></canvas>
+  </div>
+</div>
+
+<script src="ai_forecast.js"></script>
+</body>
+</html>

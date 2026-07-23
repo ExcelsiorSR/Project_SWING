@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/jpeg" href="swing_logo.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Architecture -- Agent Copilot</title>
+<link rel="stylesheet" href="style.css?v=2">
+<style>
+  .ai-wrapper {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+  .ai-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  .ai-header h1 {
+    color: var(--accent-cyan);
+    font-size: 1.8rem;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  select {
+    background: #2a2a2a;
+    color: #fff;
+    border: 1px solid #3a3a3a;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  .timeline-entry {
+    border-left: 2px solid #333;
+    padding: 8px 0 8px 14px;
+    margin-bottom: 4px;
+    font-size: 12px;
+  }
+  .timeline-entry.source-digital_twin { border-left-color: var(--accent-blue); }
+  .timeline-entry.source-ai_agent { border-left-color: var(--accent-cyan); }
+  .timeline-entry .ts { color: var(--text-dim); }
+  .timeline-entry .type { font-weight: bold; color: #fff; }
+  .ai-nav { max-width: 720px; margin: 0 auto; padding: 16px 20px 0; display: flex; gap: 18px; font-size: 13px; }
+  .ai-nav a { color: var(--text-dim); text-decoration: none; }
+  .ai-nav a.active { color: var(--accent-cyan); font-weight: bold; }
+  .ai-nav a:hover { color: var(--accent-cyan); }
+</style>
+</head>
+<body>
+
+<div class="ai-nav">
+  <div style="display:flex; align-items:center; gap:10px; margin-right:20px;">
+    <img src="project_swing.png" style="height: 50px; width: auto; filter: drop-shadow(0 0 5px rgba(0, 168, 255, 0.5));">
+  </div>
+  <a href="ai_home.html">&larr; GridMind Home</a>
+  <a href="ai_dashboard.html" class="active">Agent Copilot</a>
+  <a href="ai_forecast.html">Forecast Dashboard</a>
+  <a href="ai_chat.html">Ask the Grid</a>
+  <a href="ai_rl_status.html">RL Status</a>
+</div>
+
+<div class="ai-wrapper">
+
+  <div class="ai-header">
+    <h1>Agent Copilot</h1>
+    <div>
+      <label style="color:var(--text-dim); font-size:13px; margin-right:8px;">Grid:</label>
+      <select id="gridSelect">
+        <option value="118">IEEE 118</option>
+        <option value="39">IEEE 39</option>
+      </select>
+    </div>
+  </div>
+
+  <p style="color:var(--text-dim); font-size:13px; margin-bottom:20px;">
+    This page talks ONLY to the AI Architecture service (port 8002). It never touches pandapower
+    directly -- every physics question and every actuation goes through the Digital Twin's own
+    HTTP API, exactly like the dashboard pages do.
+  </p>
+
+  <div class="card">
+    <h3>Run Agent Pipeline</h3>
+    <button id="checkRisksBtn" class="action-btn btn-dark">Check for Risks</button>
+  </div>
+      <div id="agentLoader" class="hidden" style="display:flex; align-items:center; gap:10px;">
+        <div class="spinner"></div>
+        <span style="color:var(--accent-cyan); font-size:13px; font-family:monospace; letter-spacing:1px; animation: pulse 1.5s infinite;">
+          AGENT THINKING...
+        </span>
+      </div>
+
+  <div id="agentBriefContainer" class="card hidden">
+    <h3>Latest Proposal</h3>
+    <div id="forecastSourceBadge" style="margin-bottom:10px;"></div>
+    <div class="agent-brief">
+      <div class="decision-line">DECISION: <strong id="agentDecision"></strong></div>
+      <div id="agentBriefText"></div>
+    </div>
+
+    <div style="margin-top:14px;">
+      <h3 style="font-size:12px;">Top Forecast Drivers (SHAP)</h3>
+      <div id="shapBars"></div>
+    </div>
+
+    <div style="margin-top:14px;">
+      <h3 style="font-size:12px;">Expected Grid Resilience Index Change</h3>
+      <div id="griBarContainer"></div>
+    </div>
+
+    <div id="agentPillRow" class="pill-row hidden" style="margin-top:14px;">
+      <button id="approveBtn" class="action-btn btn-green">Approve</button>
+      <button id="rejectBtn" class="action-btn btn-red">Reject</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Event Timeline <span style="font-size:11px; color:var(--text-dim); text-transform:none;">(both Digital Twin + AI Agent events)</span></h3>
+    <button id="refreshEventsBtn" class="action-btn btn-dark" style="margin-bottom:12px;">Refresh</button>
+    <div id="eventTimeline"><p class="gri-sub">No events loaded yet.</p></div>
+  </div>
+
+</div>
+
+<script src="ai_app.js?v=2b"></script>
+</body>
+</html>

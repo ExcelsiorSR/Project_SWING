@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/jpeg" href="swing_logo.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GridMind -- Project SWING</title>
+<link rel="stylesheet" href="style.css?v=1">
+<style>
+  .ai-home-wrapper { max-width: 900px; margin: 0 auto; padding: 60px 20px; text-align: center; }
+  .ai-home-title { color: var(--accent-cyan); font-size: 2.4rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; }
+  .ai-home-subtitle { color: var(--text-dim); font-size: 1rem; margin-bottom: 40px; }
+  .page-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; text-align: left; }
+  .page-card {
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle);
+    border-radius: 12px; padding: 24px; text-decoration: none; color: var(--text-primary);
+    transition: all 0.2s ease;
+  }
+  .page-card:hover { border-color: var(--accent-cyan); transform: translateY(-2px); }
+  .page-card.disabled { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
+  .page-card h3 { margin: 0 0 8px 0; color: var(--accent-cyan); font-size: 16px; }
+  .page-card p { margin: 0; color: var(--text-dim); font-size: 13px; line-height: 1.5; }
+  .badge-soon { display: inline-block; font-size: 10px; background: #333; color: #aaa; padding: 2px 8px; border-radius: 10px; margin-left: 8px; }
+</style>
+</head>
+<body>
+
+<div class="ai-home-wrapper">
+
+  <div style="display:flex; justify-content:center; align-items:center; margin-bottom:0px">
+    <img src="project_swing.png" style="height: 180px; width: auto; filter: drop-shadow(0 0 5px rgba(0, 168, 255, 0.5));">
+  </div>
+
+  <h1 class="ai-home-title">GridMind</h1>
+  <p class="ai-home-subtitle">
+    The cognitive intelligence of Project SWING.
+  </p>
+  
+
+  <div class="page-grid">
+    <a href="ai_dashboard.html" class="page-card">
+      <h3>Agent Copilot</h3>
+      <p>Run the full forecast &rarr; risk &rarr; decision &rarr; validation pipeline. Review and approve/reject proposed actions.</p>
+    </a>
+
+    <a href="ai_chat.html" class="page-card">
+      <h3>Ask the Grid</h3>
+      <p>Conversational access to the AI, grounded in live GRI, demand, and contingency status. Doesn't execute actions -- discussion only.</p>
+    </a>
+
+    <a href="ai_forecast.html" class="page-card">
+      <h3>Forecast Dashboard</h3>
+      <p>Multi-horizon TFT/LightGBM forecast charts (15min/1h/6h/24h) with quantile bands.</p>
+    </a>
+
+    <a href="ai_rl_status.html" class="page-card">
+      <h3>RL Status</h3>
+      <p>See which grid/action combinations have a trained RL policy active right now, vs. still falling back to bisection search.</p>
+    </a>
+  </div>
+</div>
+
+</body>
+</html>

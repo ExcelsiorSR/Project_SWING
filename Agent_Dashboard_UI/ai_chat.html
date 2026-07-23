@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/jpeg" href="swing_logo.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ask the Grid -- AI Architecture</title>
+<link rel="stylesheet" href="style.css?v=1">
+<style>
+  .ai-nav { max-width: 720px; margin: 0 auto; padding: 16px 20px 0; display: flex; gap: 18px; font-size: 13px; }
+  .ai-nav a { color: var(--text-dim); text-decoration: none; }
+  .ai-nav a.active { color: var(--accent-cyan); font-weight: bold; }
+  .ai-nav a:hover { color: var(--accent-cyan); }
+  .chat-wrapper { max-width: 720px; margin: 0 auto; padding: 20px 20px 40px; }
+  .chat-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .chat-header h1 { color: var(--accent-cyan); font-size: 1.6rem; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
+  select { background: #2a2a2a; color: #fff; border: 1px solid #3a3a3a; padding: 8px 14px; border-radius: 6px; font-size: 14px; }
+
+  .chat-window {
+    height: 55vh; overflow-y: auto; background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border-subtle); border-radius: 10px; padding: 16px; margin-bottom: 14px;
+  }
+  .chat-msg { margin-bottom: 14px; max-width: 85%; }
+  .chat-msg.user { margin-left: auto; text-align: right; }
+  .chat-msg .bubble {
+    display: inline-block; padding: 10px 14px; border-radius: 12px; font-size: 14px; line-height: 1.5; text-align: left;
+  }
+  .chat-msg.user .bubble { background: var(--accent-blue); color: #fff; border-bottom-right-radius: 2px; }
+  .chat-msg.assistant .bubble { background: #2a2a2a; color: var(--text-primary); border-bottom-left-radius: 2px; }
+  .chat-msg .label { font-size: 10px; color: var(--text-dim); margin-bottom: 4px; }
+
+  .chat-input-row { display: flex; gap: 10px; }
+  .chat-input-row input {
+    flex: 1; padding: 12px; background: #2a2a2a; border: 1px solid #3a3a3a;
+    color: #fff; border-radius: 6px; font-size: 14px;
+  }
+  .chat-input-row button {
+    padding: 12px 20px; background: var(--accent-cyan); color: #071018; border: none;
+    border-radius: 6px; font-weight: bold; cursor: pointer;
+  }
+  .chat-input-row button:disabled { opacity: 0.5; cursor: not-allowed; }
+  .suggestion-chip {
+    display: inline-block; background: #232323; color: var(--text-dim); font-size: 12px;
+    padding: 6px 12px; border-radius: 14px; margin: 0 8px 8px 0; cursor: pointer; border: 1px solid #3a3a3a;
+  }
+  .suggestion-chip:hover { color: #fff; border-color: var(--accent-cyan); }
+</style>
+</head>
+<body>
+
+<div class="ai-nav">
+  <div style="display:flex; align-items:top; gap:10px; margin-right:20px;">
+    <img src="project_swing.png" style="height: 50px; width: auto; filter: drop-shadow(0 0 5px rgba(0, 168, 255, 0.5));">
+  </div>
+  <a href="ai_home.html">&larr; GridMind Home</a>
+  <a href="ai_dashboard.html">Agent Copilot</a>
+  <a href="ai_forecast.html">Forecast Dashboard</a>
+  <a href="ai_chat.html" class="active">Ask the Grid</a>
+  <a href="ai_rl_status.html">RL Status</a>
+</div>
+
+<div class="chat-wrapper">
+  <div class="chat-header">
+    <h1>Ask the Grid</h1>
+    <select id="gridSelect">
+      <option value="118">IEEE 118</option>
+      <option value="39">IEEE 39</option>
+    </select>
+  </div>
+
+  <p style="color:var(--text-dim); font-size:12px; margin-bottom:14px;">
+    Grounded in live GRI, demand, and contingency status from the Digital Twin. This chat discusses
+    and explains -- it doesn't execute actions. Use Agent Copilot's Approve flow for that.
+  </p>
+
+  <div>
+    <span class="suggestion-chip" data-q="Is the grid currently secure?">Is the grid currently secure?</span>
+    <span class="suggestion-chip" data-q="What is the current Grid Resilience Index and why?">What's the current GRI and why?</span>
+    <span class="suggestion-chip" data-q="Which lines are at risk if lost?">Which lines are at risk if lost?</span>
+    <span class="suggestion-chip" data-q="What would you recommend if congestion worsens?">What would you recommend if congestion worsens?</span>
+  </div>
+
+  <div id="chatWindow" class="chat-window">
+    <div class="chat-msg assistant">
+      <div class="label">AGENT</div>
+      <div class="bubble">Ask me anything about the current grid situation -- I'll answer using live data, not guesses.</div>
+    </div>
+  </div>
+
+  <div class="chat-input-row">
+    <input type="text" id="chatInput" placeholder="Ask about grid status, risk, or the latest proposal...">
+    <button id="sendBtn">Send</button>
+  </div>
+</div>
+
+<script src="ai_chat.js?v=1"></script>
+</body>
+</html>

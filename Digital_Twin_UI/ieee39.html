@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/jpeg" href="digital_twin.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IEEE 39-Bus Digital Twin</title>
+<link rel="stylesheet" href="style.css?v=3">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+</head>
+<body>
+
+<div id="line-tooltip" class="hidden"></div>
+
+<div class="dashboard">
+
+  <button id="togglePanelBtn" class="floating-btn toggle">Hide Command Center</button>
+  <a href="home.html" class="floating-btn home" style="text-decoration:none; display:inline-block;">&larr; Home</a>
+
+  <div class="graph-column">
+    <div class="topbar">
+      <h1>IEEE 39-Bus System</h1>
+      <p>Digital Twin Visualization</p>
+    </div>
+    <div id="cy"></div>
+  </div>
+
+  <div id="sidePanel" class="side-panel">
+    <h2>DIGITAL TWIN: COMMAND</h2>
+
+    <div class="card">
+      <h3>System Status</h3>
+      <p><strong>Status:</strong> <span id="statStatus">UNKNOWN</span></p>
+      <p><strong>Time Step:</strong> <span id="statTimeStep">t=0</span></p>
+      <p><strong>Last Event:</strong> <span id="statLastEvent">None</span></p>
+      <p><strong>Scenario:</strong> <span id="statScenario">Baseline</span></p>
+    </div>
+
+    <div class="card">
+      <h3>Electrical Metrics</h3>
+      <p><strong>Total Demand:</strong> <span id="statDemand">0.00 MW</span></p>
+      <p><strong>Total Generation:</strong> <span id="statGeneration">0.00 MW</span></p>
+      <p><strong>Max Line Load:</strong> <span id="statMaxLoad">0.0%</span></p>
+    </div>
+
+    <div class="card">
+      <h3>Security Metrics</h3>
+      <p><strong>Overloaded Corridors:</strong> <span id="statOverloadCount">0</span></p>
+      <p id="statOverloadLines" class="hidden" style="font-size:12px; color:var(--accent-red);"></p>
+    </div>
+
+    <div class="card">
+      <h3>Grid Resilience Index</h3>
+      <div><span id="griScore" class="gri-score">--</span> <span style="color:var(--text-dim); font-size:13px;">/ 100</span></div>
+      <p class="gri-sub">Voltage: <strong id="griVoltage">--</strong></p>
+      <p class="gri-sub">Loading: <strong id="griLoading">--</strong></p>
+      <p class="gri-sub">Security: <strong id="griSecurity">--</strong></p>
+    </div>
+
+    <div class="card">
+      <h3>N-1 Contingency Scan</h3>
+      <div id="contingencyStatus"><span class="gri-sub">Scanning...</span></div>
+      <div id="contingencyDetail"></div>
+    </div>
+
+    <div class="card">
+      <h3>Stress Test</h3>
+      <div class="slider-row">
+        <label>Load (% of nameplate) <span id="loadSliderValue">100%</span></label>
+        <input type="range" id="loadSlider" min="50" max="300" step="5" value="100">
+      </div>
+      <div class="slider-row">
+        <label>Line Capacity (% of nominal) <span id="derateSliderValue">100%</span></label>
+        <input type="range" id="derateSlider" min="5" max="100" step="5" value="100">
+      </div>
+      <button id="applyStressBtn" class="action-btn btn-blue">Apply Stress Test</button>
+      <p id="stressResult" class="gri-sub" style="margin-top:8px;"></p>
+    </div>
+
+    <div class="card">
+      <h3>Facility Control</h3>
+      <div style="padding:10px; background:#2a2a2a; border-radius:5px; margin-bottom:15px;">
+        <span style="color:var(--text-dim); font-size:12px;">TARGET FACILITY</span>
+        <div id="targetFacility" style="font-size:18px; font-weight:bold; color:#666;">None Selected</div>
+        <span style="color:var(--text-dim); font-size:12px; display:block; margin-top:10px;">CURRENT LOAD</span>
+        <div id="currentLoad" style="font-size:24px; font-weight:bold; color:var(--accent-green);">--- MW</div>
+      </div>
+      <input type="number" id="loadInput" placeholder="Enter new MW...">
+      <button id="applyLoadBtn" class="action-btn btn-blue">Apply Load Command</button>
+      <p id="loadCommandResult" class="gri-sub" style="margin-top:8px;"></p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  window.GRID_ID = "39";
+</script>
+<script src="app.js?v=3"></script>
+</body>
+</html>
