@@ -34,7 +34,8 @@ The system is deliberately split into independent services that communicate **on
 │   Vanilla HTML/CSS/JS,  │                       │   Agent Copilot, Ask the Grid,  │
 │   Cytoscape.js graph    │                       │   RL Status                     │
 └─────────────────────────┘                       └─────────────────────────────────┘
-Either service can be redeployed independently, pointed at a different counterpart, or run on a separate machine without touching the other's code.
+Either service can be redeployed independently, pointed at a different counterpart,
+or run on a separate machine without touching the other's code.
 The only coupling is the DIGITAL_TWIN_API_URL environment variable.
 ```
 
